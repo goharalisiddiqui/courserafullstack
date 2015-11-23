@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <title>JavaScript Guessing Game</title>
+</head>
+    <body onload="do_game()">
+        <script>
+			var colors = ["Aqua","Azure","Beige","Coral","DimGray","Fuchsia","Gold","HoneyDew","Indigo","Khaki","Lavender",
+																				"Lime","Magenta","Olive","Plum","Salmon","Teal","Thistle"];
+			var colors_lower = ["aqua","azure","beige","coral","dimgray","fuchsia","gold","honeydew","indigo","khaki","lavender",
+																				"lime","magenta","olive","plum","salmon","teal","thistle"];
+
+			var target, target_2;            
+			var guess_input_text;    
+			var finished = false;   
+			var guesses = 0;
+
+			function do_game() {
+			    var random_number = Math.random() * 18;
+			    var random_number_integer = Math.floor(random_number);
+			    target = colors_lower[random_number_integer];
+			    target_2 = colors[random_number_integer];
+			    alert("The correct guess is "+target_2);
+
+			    while (!finished) {
+			        guess_input_text = (prompt("I am thinking of a color I know \n"+
+			                                  "These are the colors I know \n\n"+colors+
+			                                  "\n\nWhat is the color I am thinking?")).toLowerCase();
+			        guesses += 1;
+			        finished = check_guess();
+			    }
+		
+			}
+
+			function check_guess() {
+			    if (colors_lower.indexOf(guess_input_text) == -1) {
+			        alert("You have entered a color I do not recognize.\n\n" +
+			              "Please enter a color that I know of.");
+			        guesses--;
+			        return false;
+			    }
+			    if (guess_input_text > target) {
+			        alert("Your color is alphabetically high!\n\nPlease guess again.");
+			        return false;
+			    }
+			    if (guess_input_text < target) {
+			        alert("Your color is alphabetically low!\n\nPlease guess again.");
+			        return false;
+			    }
+			    myBody=document.getElementsByTagName("body")[0];
+				myBody.style.background=target_2;
+			    alert("You got it! The color was " + target_2 + 
+			          ".\n\nIt took you " + guesses + 
+			          " guesses to get the color right!\n\nLook at the background, It is the color I thought of :)");
+			    return true;   
+			}	
+
+        </script>
+    </body>
+</html>
